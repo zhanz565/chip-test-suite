@@ -1,0 +1,27 @@
+name: Chip Test Suite CI
+
+        on:
+          push:
+            branches: ["**"]
+          pull_request:
+
+        jobs:
+          build-and-test:
+            runs-on: ubuntu-latest
+
+            steps:
+              - name: Checkout repository
+                uses: actions/checkout@v4
+
+              - name: Install dependencies
+                run: |
+                  sudo apt-get update
+                  sudo apt-get install -y build-essential python3
+
+              - name: Build hello example
+                working-directory: my-chip-test-suite/examples/hello
+                run: make
+
+              - name: Run tests
+                working-directory: my-chip-test-suite/examples/hello
+                run: python3 run_tests.py

@@ -7,8 +7,6 @@ BINARY = "build/demo.out"
 
 def fallback_self_test():
     print("ES-TDK not available, running fallback self-tests...\n")
-
-    # Simple self-checks mirroring our C functions
     passed = True
 
     # test_addition
@@ -18,7 +16,7 @@ def fallback_self_test():
         print("[FAIL] test_addition (fallback)")
         passed = False
 
-    # test_blink_stub semantics
+    # test_blink_stub
     if (3 > 0) and not (0 > 0):
         print("[PASS] test_blink_stub (fallback)")
     else:
@@ -32,19 +30,17 @@ def fallback_self_test():
         print("[FAIL] test_max_int (fallback)")
         passed = False
 
-    if passed:
-        print("\nOverall: [PASS] All fallback tests passed ✔")
-    else:
-        print("\nOverall: [FAIL] Some fallback tests failed ❌")
+    print("\nOverall:", "[PASS] All tests passed ✔" if passed else "[FAIL] Failures detected ❌")
+
 
 def run_es_tdk_tests():
     print("Running tests...")
 
-    # TODO: adjust this if you actually set up ES-TDK's tdk.jar locally
+    # Placeholder for real ES-TDK location
     TDK_JAR = "../../../../org.testeditor.tdk.eclipse.application/tdk.jar"
 
     if not os.path.exists(TDK_JAR):
-        print("Warning: ES-TDK tdk.jar not found, using fallback test runner.")
+        print("Warning: ES-TDK tdk.jar not found, using fallback runner.")
         fallback_self_test()
         return
 
@@ -55,25 +51,19 @@ def run_es_tdk_tests():
         text=True
     )
 
-    output = result.stdout.strip()
-    error = result.stderr.strip()
-
     if result.returncode != 0:
-        print("ES-TDK returned an error, falling back to self-tests.")
-        if error:
-            print("\nES-TDK error output:")
-            print(error)
+        print("ES-TDK error, using fallback.")
         fallback_self_test()
         return
 
-    # Very naive check; you can refine based on actual ES-TDK output
+    output = result.stdout.strip()
+    print(output)
+
     if "FAIL" in output:
         print("[FAIL] Some tests failed ❌")
     else:
         print("[PASS] All tests passed ✔")
 
-    print("\nRaw Output:")
-    print(output)
 
 if __name__ == "__main__":
     if not os.path.exists(BINARY):

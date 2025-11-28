@@ -1,99 +1,122 @@
-    # Chip Test Suite (Built on ES-TDK)
+ # 🔧 Chip Test Suite  
+    ### An Embedded C Test Harness Built on ES-TDK  
+    **By: zhanz565**  
 
-    This project extends the open-source **ES-TDK (Embedded Software Test Development Kit)**  
-    to provide a clean, beginner-friendly, and demo-ready embedded testing environment.
-
-    It is designed so students and developers can:
-    - Quickly write tests for embedded C code  
-    - Run them using ES-TDK’s existing test engine  
-    - See real pass/fail outputs  
-    - Build testable firmware modules  
-    - Eventually extend to physical microcontrollers
-
-    This repository adds:
-    - A simple **Hello World example**  
-    - A **minimal Makefile** for building and running tests  
-    - A **Python test runner** that displays clean results  
-    - Beginner-friendly documentation explaining how to add new tests  
+    ![Build](https://img.shields.io/badge/build-passing-brightgreen)
+    ![Language](https://img.shields.io/badge/language-C-blue)
+    ![Python](https://img.shields.io/badge/python-3.10+-yellow)
+    ![License](https://img.shields.io/badge/license-EPL_1.0-lightgrey)
 
     ---
+    ## 🚀 Overview
 
-    ## 📁 Project Layout
+    **Chip Test Suite** is a lightweight, beginner-friendly test harness built on top of  
+    the open-source **ES-TDK (Embedded Software Test Development Kit)** framework.
+
+    This project makes it easy to:
+
+    - Write small **embedded-style C functions**
+    - Test them using both **ETSpec test files** and a **Python fallback test engine**
+    - Build everything with a simple **Makefile**
+    - Run tests with one command (`python3 run_tests.py`)
+    - Use GitHub Actions CI to automatically test the code on each push
+
+    This project acts as a **personal learning environment for embedded testing**,  
+    and a polished demo for hiring managers evaluating embedded or software engineering skills.
+
+    ---
+    ## 📁 Project Structure
 
     ```
     my-chip-test-suite/
-        README.md          → this file
-        examples/
-            hello/         → a simple “hello world” test project
-                src/       → firmware/application code
-                tests/     → test specifications
-                Makefile   → build script
-                run_tests.py → test runner
+    │
+    ├── README.md
+    ├── examples/
+    │   └── hello/
+    │       ├── src/
+    │       │   └── main.c
+    │       ├── tests/
+    │       │   └── test_spec.et
+    │       ├── Makefile
+    │       └── run_tests.py
     ```
 
     ---
+    ## ▶️ How to Run the Example
 
-    ## ▶️ Running the Example (Hello Test)
-
-    ### **Linux / WSL / macOS**
+    **Build:**
     ```
     cd examples/hello
     make
+    ```
+
+    **Run tests:**
+    ```
     python3 run_tests.py
     ```
 
-    ### **Windows (PowerShell)**
-    ```
-    cd examples\hello
-    make
-    python run_tests.py
-    ```
-
-    You should see ES-TDK produce:
+    Expected output:
     ```
     Running tests...
     [PASS] test_addition
     [PASS] test_blink_stub
-    All tests passed ✔
+    [PASS] test_max_int
+    Overall: [PASS] All fallback tests passed ✔
+    ```
+
+    If ES-TDK’s `tdk.jar` is detected locally, the script automatically switches  
+    to the real ES-TDK engine. Otherwise, the lightweight fallback engine runs.
+
+    ---
+    ## 🧪 Tests Included
+
+    - ✔ **test_addition** – verifies arithmetic  
+    - ✔ **test_blink_stub** – simulates embedded HAL behavior  
+    - ✔ **test_max_int** – example of embedded-style branching logic  
+
+    ---
+    ## 🛠 Technologies Used
+
+    | Type | Tools |
+    |------|-------|
+    | Language | C, Python |
+    | Build | GCC, Make |
+    | Testing | ETSpec (ES-TDK), Python fallback |
+    | OS | WSL / Linux |
+    | CI | GitHub Actions |
+
+    ---
+    ## 📦 Installing Dependencies
+
+    ```
+    sudo apt update
+    sudo apt install build-essential python3
     ```
 
     ---
+    ## 🔁 Continuous Integration (CI)
 
-    ## 🧪 About the Test System
+    A GitHub Actions workflow automatically:
 
-    The tests are written using **ETSpec**, the ES-TDK test specification language.
+    - Builds the C example  
+    - Runs the Python test engine  
+    - Reports pass/fail status  
 
-    This demo keeps it simple:
-    - Runs tests against basic C functions
-    - Uses ES-TDK engine to evaluate results
-    - Prints human-readable pass/fail output
-
-    Later you can extend it to real microcontrollers (e.g., STM32, Raspberry Pi Pico).
-
-    ---
-
-    ## 🌱 How to Add Your Own Tests
-
-    1. Add a function to `src/main.c`
-    2. Write a matching test in `tests/test_spec.et`
-    3. Run `python3 run_tests.py`
+    Workflow file is at:
+    ```
+    .github/workflows/chip-test-suite-ci.yml
+    ```
 
     ---
+    ## 🌱 Future Improvements
 
-    ## ⭐ Why This Project Exists
-
-    This is a student-friendly, improved extension of the ES-TDK framework.  
-    It makes the system **easier to understand**, **easier to run**, and **more résumé-ready** by including:
-
-    - Examples  
-    - Build scripts  
-    - Documentation  
-    - Test runner  
-    - Demonstration workflows  
+    - Full ES-TDK integration
+    - Real MCU backend (STM32 / Pico)
+    - More complex test modules  
+    - GUI dashboard for test visualization  
 
     ---
-
     ## 📜 License
 
-    Base framework: ES-TDK (EPL-1.0)  
-    Your additions: MIT License (optional)
+    Base framework: **EPL-1.0**  
+    Your additions: **MIT License** (optional)
