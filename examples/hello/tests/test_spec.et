@@ -1,0 +1,16 @@
+// ES-TDK Test Specification Example
+
+          test "test_addition" {
+              expect add(2, 3) == 5;
+          }
+
+          test "test_blink_stub" {
+              expect blink_stub(3) == 1;
+              expect blink_stub(0) == 0;
+          }
+// Test max_int
+test "test_max_int" {
+    expect max_int(3, 7) == 7;
+    expect max_int(10, -5) == 10;
+    expect max_int(0, 0) == 0;
+}
